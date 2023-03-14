@@ -21,6 +21,7 @@ public class Customer {
     private String maritalStatus;
 
     public static class Builder {
+        //Mandatory
         private String firstName;
         private String lastName;
         private String personalNumber;
@@ -35,29 +36,51 @@ public class Customer {
         private String gender;
         private String maritalStatus;
 
+        //Mandatory
+
         public Builder(String firstName, String lastName, String personalNumber) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.personalNumber = personalNumber;
         }
 
-        public Builder withMiddleName(String middleName) {
+        public Builder middleName(String middleName) {
             this.middleName = middleName;
             return this;
         }
 
-        public Builder withAge(int age) {
+        public Builder age(int age) {
             this.age = age;
             return this;
         }
 
-        public Builder withCountryCode(String countryCode) {
+        public Builder countryCode(String countryCode) {
             this.countryCode = countryCode;
             return this;
         }
 
-        public Builder withMartialStatus(String martialStatus) {
+        public Builder martialStatus(String martialStatus) {
             this.maritalStatus = martialStatus;
+            return this;
+        }
+
+        public Builder city(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public Builder monthlyIncome(int monthlyIncome) {
+            this.monthlyIncome = monthlyIncome;
+            return this;
+        }
+
+        public Builder employer(String employer) {
+            this.employer = employer;
+            return this;
+        }
+
+        public Builder gender(String gender) {
+            this.gender = gender;
             return this;
         }
 
@@ -70,6 +93,10 @@ public class Customer {
             customer.maritalStatus = maritalStatus;
             customer.countryCode = countryCode;
             customer.middleName = middleName;
+            customer.city = city;
+            customer.monthlyIncome = monthlyIncome;
+            customer.employer = employer;
+            customer.gender = gender;
             return customer;
         }
     }

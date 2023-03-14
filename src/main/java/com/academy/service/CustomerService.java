@@ -27,12 +27,21 @@ public class CustomerService {
                 capitalizeFirstLetter(customer.getFirstName()),
                 capitalizeFirstLetter(customer.getLastName()),
                 formatPersonalNumber(customer))
-             .withAge(customer.getAge())
-             .withCountryCode(customer.getCountryCode())
-             .withMartialStatus(customer.getMaritalStatus())
-             .withMiddleName(customer.getMiddleName()).build();
+                .age(customer.getAge())
+                .countryCode(customer.getCountryCode())
+                .martialStatus(customer.getMaritalStatus())
+                .middleName(customer.getMiddleName())
+                .employer(customer.getEmployer())
+                .monthlyIncome(customer.getMonthlyIncome())
+                .city(customer.getCity())
+                .gender(customer.getGender())
+                .build();
 
         customerRepository.insert(formattedCustomer);
+    }
+
+    public void deleteById(String customerId) {
+        customerRepository.deleteById(customerId);
     }
 
     private String capitalizeFirstLetter(String string) {
@@ -49,9 +58,5 @@ public class CustomerService {
         } else {
             return customer.getPersonalNumber().substring(0, 4) + "-" + customer.getPersonalNumber().substring(4);
         }
-    }
-
-    public void deleteById(String customerId) {
-        customerRepository.deleteById(customerId);
     }
 }

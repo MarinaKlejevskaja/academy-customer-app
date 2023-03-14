@@ -7,6 +7,7 @@ import com.academy.validations.CustomerAdultValidator;
 import com.academy.validations.MandatoryCustomerValuesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -55,18 +56,20 @@ public class CustomerService {
     }
 
     private String capitalizeFirstLetter(String string) {
-        if (string.isEmpty()) {
+        String trimmedString = string.trim();
+        if (trimmedString.isEmpty()) {
             return string;
         } else {
-            return String.valueOf(string.charAt(0)).toUpperCase() + string.substring(1);
+            return StringUtils.capitalize(trimmedString);
         }
     }
 
     private String formatPersonalNumber(Customer customer) {
-        if (customer.getPersonalNumber().length() < 5) {
-            return customer.getPersonalNumber();
+        String trimmedPersonalNumber = customer.getPersonalNumber().trim();
+        if (trimmedPersonalNumber.length() < 5) {
+            return trimmedPersonalNumber;
         } else {
-            return customer.getPersonalNumber().substring(0, 4) + "-" + customer.getPersonalNumber().substring(4);
+            return trimmedPersonalNumber.substring(0, 4) + "-" + trimmedPersonalNumber.substring(4);
         }
     }
 }

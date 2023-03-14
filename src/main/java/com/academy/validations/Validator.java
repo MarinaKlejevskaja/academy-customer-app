@@ -10,25 +10,5 @@ import org.springframework.stereotype.Component;
 @Component
 abstract class Validator<T> {
 
-    public void validate(Customer customer) {
-        if (customer.getPersonalNumber().isBlank()) {
-            throw new MandatoryValueMissingException("Missing personal number");
-        }
-        if (customer.getFirstName().isBlank()) {
-            throw new MandatoryValueMissingException("Missing first name");
-        }
-        if (customer.getLastName().isBlank()) {
-            throw new MandatoryValueMissingException("Missing last name");
-        }
-        if (customer.getAge() < 18) {
-            throw new CustomerNotAdultException("Customer is not adult, age is: " + customer.getAge());
-        }
-        if (!customer.getCountryCode().isEmpty()) {
-            try {
-                CountryCode.valueOf(customer.getCountryCode().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                throw new InvalidCountryCodeException("Country code: %s, is not valid".formatted(customer.getCountryCode()));
-            }
-        }
-    }
+    public abstract void validate(T attribute);
 }

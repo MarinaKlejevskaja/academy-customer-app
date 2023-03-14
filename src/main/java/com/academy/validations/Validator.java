@@ -1,4 +1,4 @@
-package com.academy.service;
+package com.academy.validations;
 
 import com.academy.entity.CountryCode;
 import com.academy.entity.Customer;
@@ -8,7 +8,7 @@ import com.academy.exception.MandatoryValueMissingException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Validator {
+abstract class Validator<T> {
 
     public void validate(Customer customer) {
         if (customer.getPersonalNumber().isBlank()) {

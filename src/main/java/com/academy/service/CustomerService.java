@@ -2,6 +2,9 @@ package com.academy.service;
 
 import com.academy.entity.Customer;
 import com.academy.repository.CustomerRepository;
+import com.academy.validations.CountryCodeValidator;
+import com.academy.validations.CustomerAdultValidator;
+import com.academy.validations.MandatoryCustomerValuesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,12 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private Validator validator;
+    private MandatoryCustomerValuesValidator mandatoryCustomerValuesValidator;
+
+    @Autowired
+    private CustomerAdultValidator customerAdultValidator;
+    @Autowired
+    private CountryCodeValidator countryCodeValidator;
 
 
     public List<Customer> findAll() {
@@ -21,14 +29,16 @@ public class CustomerService {
     }
 
     public void insert(Customer customer) {
-        validator.validate(customer);
+        mandatoryCustomerValuesValidator.validate(customer);
+        customerAdultValidator.validate(customer);
+        countryCodeValidator.validate(customer);
 
         Customer formattedCustomer = new Customer.Builder(
                 capitalizeFirstLetter(customer.getFirstName()),
                 capitalizeFirstLetter(customer.getLastName()),
                 formatPersonalNumber(customer))
                 .age(customer.getAge())
-                .countryCode(customer.getCountryCode())
+                .countryCode(customer.getCountryCode().toUpperCase())
                 .martialStatus(customer.getMaritalStatus())
                 .middleName(customer.getMiddleName())
                 .employer(customer.getEmployer())

@@ -3,7 +3,7 @@ package com.academy.service;
 import com.academy.entity.Customer;
 import com.academy.repository.CustomerRepository;
 import com.academy.validations.CountryCodeValidator;
-import com.academy.validations.CustomerAdultValidator;
+import com.academy.validations.AdultValidator;
 import com.academy.validations.MandatoryCustomerValuesValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class CustomerService {
     private MandatoryCustomerValuesValidator mandatoryCustomerValuesValidator;
 
     @Autowired
-    private CustomerAdultValidator customerAdultValidator;
+    private AdultValidator adultValidator;
     @Autowired
     private CountryCodeValidator countryCodeValidator;
 
@@ -31,7 +31,7 @@ public class CustomerService {
 
     public void insert(Customer customer) {
         mandatoryCustomerValuesValidator.validate(customer);
-        customerAdultValidator.validate(customer);
+        adultValidator.validate(customer.getAge());
         countryCodeValidator.validate(customer.getCountryCode());
 
         Customer formattedCustomer = new Customer.Builder(

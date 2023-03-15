@@ -32,7 +32,7 @@ public class CustomerService {
     public void insert(Customer customer) {
         mandatoryCustomerValuesValidator.validate(customer);
         customerAdultValidator.validate(customer);
-        countryCodeValidator.validate(customer);
+        countryCodeValidator.validate(customer.getCountryCode());
 
         Customer formattedCustomer = new Customer.Builder(
                 capitalizeFirstLetter(customer.getFirstName()),

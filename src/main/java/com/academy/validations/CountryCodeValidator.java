@@ -6,15 +6,15 @@ import com.academy.exception.ValidationException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CountryCodeValidator extends Validator<Customer> {
+public class CountryCodeValidator extends Validator<String> {
 
     @Override
-    public void validate(Customer customer) {
-        if (!customer.getCountryCode().isEmpty()) {
+    public void validate(String countryCode) {
+        if (!countryCode.isEmpty()) {
             try {
-                CountryCode.valueOf(customer.getCountryCode().toUpperCase());
+                CountryCode.valueOf(countryCode.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new ValidationException("Country code: %s, is not valid".formatted(customer.getCountryCode()));
+                throw new ValidationException("Country code: %s, is not valid".formatted(countryCode));
             }
         }
     }
